@@ -1,0 +1,8 @@
+.navbar-nav {
+    color: white !important;
+}
+
+.navbar-nav:hover {
+
+    color: aqua;
+}
