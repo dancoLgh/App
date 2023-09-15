@@ -1,8 +1,19 @@
 <!-- home-template -->
-<div id="pacientes">
+<div class="mt-3" id="pacientes">
   <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand">Pacientes Registrados</a>
+    <div class="container">
+      <div>
+        <a class="navbar-brand">Pacientes Registrados</a>
+        <button
+          type="button"
+          class="btn btn-primary text-white"
+          data-bs-toggle="modal"
+          data-bs-target="#crearPacienteModal"
+        >
+          <i class="bi bi-person-plus"></i> Crear Paciente
+        </button>
+      </div>
+
       <form class="d-flex">
         <input
           class="form-control me-2"
@@ -14,4 +25,143 @@
       </form>
     </div>
   </nav>
+
+  <!-- Modal registo de paciente -->
+  <div
+    class="modal fade"
+    id="crearPacienteModal"
+    tabindex="-1"
+    aria-labelledby="crearPacienteModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="crearPacienteModal">
+            Registro de Paciente
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <h5>Datos Básicos</h5>
+          <!-- formulario de registor de paciente -->
+          <div class="row g-3">
+            <div class="form-floating mb-3 col-md">
+              <input
+                type="text"
+                class="form-control"
+                id="nombresPaciente"
+                placeholder="Nombres de Paciente"
+                required
+              />
+              <label for="nombresPaciente">Nombres del Paciente</label>
+            </div>
+            <div class="form-floating col-md mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="apellidosPaciente"
+                placeholder="Apellidos de Paciente"
+                required
+              />
+              <label for="apellidosPaciente">Apellidos del Paciente</label>
+            </div>
+          </div>
+          <div class="row g-3">
+            <div class="form-floating mb-3 col-md">
+              <input
+                type="date"
+                class="form-control"
+                id="FechaNacimientoPaciente"
+                placeholder="Nombres de Paciente"
+                required
+              />
+              <label for="FechaNacimientoPaciente">Fecha de nacimiento</label>
+            </div>
+            <div class="form-floating mb-3 col-md">
+              <input
+                type="number"
+                class="form-control"
+                id="EdadPaciente"
+                placeholder="Edad"
+                required
+              />
+              <label for="EdadPaciente">Edad</label>
+            </div>
+            <div class="form-floating mb-3 col-md">
+              <input
+                type="number"
+                class="form-control"
+                id="numDocumetoPaciente"
+                placeholder="Número de Documento"
+                required
+              />
+              <label for="numDocumetoPaciente">Número de Documento</label>
+            </div>
+          </div>
+          <div class="row g-2">
+            <div class="form-floating mb-3 col-md">
+              <input
+                type="number"
+                class="form-control"
+                id="celularPaciente"
+                placeholder="Número de celular"
+                required
+              />
+              <label for="celularPaciente">Número de celular</label>
+            </div>
+            <div class="form-floating col-md">
+              <input
+                type="number"
+                class="form-control"
+                id="celularTutoPaciente"
+                placeholder="Número de Celular Tutor"
+                required
+              />
+              <label for="celularTutoPaciente"
+                >Número de celular del tutor</label
+              >
+            </div>
+          </div>
+          <h5>Datos Medicos</h5>
+          <div class="form-floating mb-3 col-md">
+            <input
+              type="text"
+              class="form-control"
+              id="docCabeceraPaciente"
+              placeholder="Doctor de Cabecera"
+              required
+            />
+            <label for="docCabeceraPaciente">Doctor de Cabecera</label>
+          </div>
+          <div class="form-floating col-md">
+            <textarea
+              class="form-control"
+              placeholder="Antecedentes Clinicos"
+              id="antecedentesPaciente"
+              style="height: 100px"
+            ></textarea>
+            <label for="antecedentesPaciente">Antecedentes Clinicos</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button type="button" id="btnCrearPaciente" class="btn btn-primary">
+            Crear Paciente
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
