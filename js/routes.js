@@ -20,15 +20,20 @@ function loadTemplate(templateName) {
 }
 
 // Función para manejar las rutas
+
 function handleRoute() {
   const hash = window.location.hash;
-  console.log(hash);
-  switch (hash) {
-    case "#/":
+  const route = hash.split("/")[1];
+  console.log(route);
+  switch (route) {
+    case "":
       loadTemplate("home");
       break;
-    case "#/pacientes":
+    case "pacientes":
       loadTemplate("pacientes");
+      break;
+    case "fichamedica":
+      loadTemplate("fichamedica");
       break;
     default:
       loadTemplate("home");

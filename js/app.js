@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
       (target.id === "editarPacienteI" || target.id === "editarPaciente")
     ) {
       document.getElementById("crearPacienteModalH1").innerHTML =
-        "Editar de Paciente";
+        "Editar Paciente";
       document.getElementById("btnCrearPaciente").innerHTML = "Guardar Edicion";
 
       cargarDatosEdit(target.getAttribute("data-id"));
@@ -69,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (mutation.addedNodes[2].id === "pacientes") {
           getPacientes();
           buscador();
+          console.log(getUrl());
         }
       }
     }
@@ -156,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   // Leer pacientes de firestore
   function getPacientes() {
+    let url = getUrl();
     let tablePacientes = document.getElementById("tablePacientes");
     db.collection("pacientes").onSnapshot((querySnapshot) => {
       tablePacientes.innerHTML = "";
@@ -168,7 +170,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>${doc.data().numDocumetoPaciente}</td>
             <td>${doc.data().EdadPaciente}</td>
             <td>
-                <button type="button" class="btn btn-success btn-sm" id="verPaciente"><i class="bi bi-eye"></i></button>
+                <a  href="${url}#/fichamedica/${
+          doc.id
+        }"> <button type="button" class="btn btn-success btn-sm" id="verPaciente"><i class="bi bi-eye"></i></button></a>
                 <button data-bs-toggle="modal" data-bs-target="#crearPacienteModal" type="button" class="btn btn-warning btn-sm" id="editarPaciente" data-id="${
                   doc.id
                 }"><i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#crearPacienteModal" id="editarPacienteI" data-id="${
@@ -307,6 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
       edadInput.value = edad;
     }
   }
+
   //cargar datos en dom para editarlos
   function cargarDatosEdit(id) {
     let nombresPaciente = document.getElementById("nombresPaciente");
@@ -342,6 +347,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Error getting document:", error);
       });
   }
+
   //Buscar en table
   function buscador() {
     const tabla = document.getElementById("tablePacientes");
@@ -371,6 +377,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  //Limpiar los compos del formulario Modal
   function limpiarCamposPaciente() {
     document.getElementById("nombresPaciente").value = "";
     document.getElementById("apellidosPaciente").value = "";
@@ -381,5 +388,14 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("celularTutoPaciente").value = "";
     document.getElementById(("docCabeceraPaciente".value = ""));
     document.getElementById("antecedentesPaciente").value = "";
+  }
+
+  //obtern UIRL
+  function getUrl() {
+    const urlCompleta = window.location.href;
+    const pathname = window.location.pathname;
+    const posicion = urlCompleta.indexOf(pathname);
+    const url = urlCompleta.slice(0, posicion);
+    return url + pathname;
   }
 });
