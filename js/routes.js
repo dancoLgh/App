@@ -12,7 +12,8 @@ function loadTemplate(templateName) {
     if (xhr.readyState === 4 && xhr.status === 200) {
       contentDiv.innerHTML = xhr.responseText;
     } else if (xhr.status === 404) {
-      contentDiv.innerHTML = "<p>Plantilla no encontrada</p>";
+      console.log(hash);
+      loadTemplate("home");
     }
   };
   xhr.send();
@@ -21,7 +22,7 @@ function loadTemplate(templateName) {
 // Función para manejar las rutas
 function handleRoute() {
   const hash = window.location.hash;
-
+  console.log(hash);
   switch (hash) {
     case "#/":
       loadTemplate("home");
@@ -30,7 +31,7 @@ function handleRoute() {
       loadTemplate("pacientes");
       break;
     default:
-      loadTemplate("not-found-template");
+      loadTemplate("home");
   }
 }
 

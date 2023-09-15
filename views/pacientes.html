@@ -9,6 +9,7 @@
           class="btn btn-primary text-white"
           data-bs-toggle="modal"
           data-bs-target="#crearPacienteModal"
+          id="btnAbrirModal"
         >
           <i class="bi bi-person-plus"></i> Crear Paciente
         </button>
@@ -20,11 +21,24 @@
           type="search"
           placeholder="Buscar Paciente"
           aria-label="Buscar "
+          id="buscar"
         />
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
     </div>
   </nav>
+
+  <table class="table mt-5 table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Nombre y Apellido</th>
+        <th scope="col">N Documento</th>
+        <th scope="col">Edad</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="tablePacientes"></tbody>
+  </table>
 
   <!-- Modal registo de paciente -->
   <div
@@ -37,7 +51,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="crearPacienteModal">
+          <h5 class="modal-title" id="crearPacienteModalH1">
             Registro de Paciente
           </h5>
           <button
@@ -157,7 +171,12 @@
           >
             Cancelar
           </button>
-          <button type="button" id="btnCrearPaciente" class="btn btn-primary">
+          <button
+            type="button"
+            id="btnCrearPaciente"
+            data-bs-dismiss="modal"
+            class="btn btn-primary"
+          >
             Crear Paciente
           </button>
         </div>
