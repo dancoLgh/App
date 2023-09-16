@@ -9,7 +9,7 @@
           class="btn btn-primary text-white"
           data-bs-toggle="modal"
           data-bs-target="#anModal"
-          id="btnAbrirModal"
+          id="btnAbrirModalAn"
         >
           <i class="bi bi-journal-plus"></i> Nueva Anamnesis
         </button>
@@ -29,6 +29,7 @@
   </nav>
   <div class="alert alert-light mt-2" role="alert">
     <h6>Doc de Cabecera <b id="docCabeceraPaciente"></b></h6>
+    <hr />
     <h5>Anamnesis Remota</h5>
     <p id="antecedentesPaciente"></p>
   </div>
@@ -38,7 +39,8 @@
         <th scope="col">Fecha</th>
         <th scope="col">Motivo</th>
         <th scope="col">Estado</th>
-        <th scope="col">Diagnostico</th>
+        <!-- <th scope="col">Diagnostico</th> -->
+        <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody id="tableAn"></tbody>
@@ -52,69 +54,125 @@
     aria-labelledby="anModal"
     aria-hidden="true"
   >
-    <label for="dolor">Dolor/frecuncia/intensidad/alivio</label>
-  </div>
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="anModaTitlel">Anamnesis Actual</h4>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <!-- formulario de registor de paciente -->
-        <div class="form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="moticoConsulta"
-            placeholder="Motivo de Consulta"
-          />
-          <label for="moticoConsulta">Motivo de Consulta</label>
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <!-- Heder mmodal -->
+        <div class="modal-header">
+          <h4 class="modal-title" id="anModaTitlel">
+            Creadno Nueva Anamnesis Actual
+          </h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
-            <div class="form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="laterarida"
-            placeholder="Lateralidad"
-          />
-          <label for="laterarida">Lateralidad/label>
+        <!-- fin header modal -->
+        <div class="modal-body">
+          <!-- formulario de registor de paciente -->
+          <select
+            class="form-select form-select-sm mb-3"
+            aria-label=".form-select-sm estado"
+            id="estado"
+          >
+            <option value="En Tratamiento">En Diagnosis</option>
+            <option value="En Tratamiento">En Tratamiento</option>
+            <option value="Alta">Alta</option>
+            <option value="Derivado">Derivado</option>
+          </select>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="motivoConsulta"
+              placeholder="Motivo de Consulta"
+            />
+            <label for="motivoConsulta">Motivo de Consulta</label>
+          </div>
+
+          <div class="form-floating col-md mb-3">
+            <textarea
+              class="form-control"
+              placeholder="Dolor/frecuencia/intensidad"
+              id="dolor"
+              style="height: 100px"
+              inspeccion
+            ></textarea>
+            <label for="dolor">Dolor/frecuencia/intensidad</label>
+          </div>
+          <div class="form-floating col-md mb-3">
+            <textarea
+              class="form-control"
+              placeholder="Inspección"
+              id="inspeccion"
+              style="height: 100px"
+            ></textarea>
+            <label for="inspeccion">Inspección</label>
+          </div>
+          <div class="form-floating col-md mb-3">
+            <textarea
+              class="form-control"
+              placeholder="palpacion"
+              id="palpacion"
+              style="height: 100px"
+            ></textarea>
+            <label for="palpacion">palpación</label>
+          </div>
+          <div class="form-floating col-md mb-3">
+            <textarea
+              class="form-control"
+              placeholder="Movilidad pasiva"
+              id="movilidadPasiva"
+              style="height: 100px"
+            ></textarea>
+            <label for="movilidadPasiva">Movilidad pasiva</label>
+          </div>
+          <div class="form-floating col-md mb-3">
+            <textarea
+              class="form-control"
+              placeholder="Movilidad pasiva"
+              id="movilidadActiva"
+              style="height: 100px"
+            ></textarea>
+            <label for="movilidadActiva">Movilidad activa</label>
+          </div>
+          <div class="form-floating col-md mb-3">
+            <textarea
+              class="form-control"
+              placeholder="Movilidad pasiva"
+              id="fuerza"
+              style="height: 100px"
+            ></textarea>
+            <label for="fuerza">Fuerza</label>
+          </div>
+          <div class="form-floating col-md mb-3">
+            <textarea
+              class="form-control"
+              placeholder="ROM"
+              id="rom"
+              style="height: 50px"
+            ></textarea>
+            <label for="rom">ROM</label>
+          </div>
         </div>
-      </div>
-      <div class="form-floating mb-3">
-    <input
-      type="text"
-      class="form-control"
-      id="dolor"
-      placeholder="Dolor/frecuncia/intensidad/alivio"
-    />
-        <div class="form-floating col-md">
-          <textarea
-            class="form-control"
-            placeholder="Inspección"
-            id="inspeccion"
-            style="height: 100px"
-          ></textarea>
-          <label for="antecedentesPaciente">Inspección</label>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            id="btnInsertAn"
+            data-bs-dismiss="modal"
+            class="btn btn-primary"
+          >
+            Crear Anamnesis
+          </button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Cancelar
-        </button>
-        <button
-          type="button"
-          id="btnInsertAn"
-          data-bs-dismiss="modal"
-          class="btn btn-primary"
-        >
-          Crear Anamnesis
-        </button>
       </div>
     </div>
   </div>
