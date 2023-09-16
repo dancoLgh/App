@@ -96,6 +96,23 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   /*========================== FUNCIONES GENERALES =================================== */
+  //Formateo de fecha
+  function formatearFechaHora(fecha) {
+    const options = {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+
+    const fechaFormateada = new Date(fecha.seconds * 1000).toLocaleDateString(
+      "es-ES",
+      options
+    );
+
+    return fechaFormateada;
+  }
 
   //Obtener el Id del paciente
   function getIdPaciente() {
@@ -177,7 +194,9 @@ document.addEventListener("DOMContentLoaded", function () {
               </div>
               <div class="card-body">
                 <blockquote class="blockquote mb-0 text-start fontDetallesAn">
-                  <p> <b>Fecha de Creacion:</b>${data.fechaCreacion} </p>
+                  <p> <b>Fecha de Creacion:</b>${formatearFechaHora(
+                    doc.data().fechaCreacion
+                  )}</p>
                   <p> <b>Motivo de Consulta:  </b>${data.motivoConsulta}</p>
                   <p> <b> Dolor/frecuencia/intencidad:</b> ${data.dolor}</p>
                   <p> <b> Inspección: </b> ${data.inspeccion}</p>
@@ -341,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let fuerza = document.getElementById("fuerza") || "-";
     let rom = document.getElementById("rom") || "-";
     let estado = document.getElementById("estado");
-    let fechaCreacion = obtenerFechaHoraActual();
+    let fechaCreacion = firebase.firestore.Timestamp.now();
     let tratamiento = document.getElementById("tratamiento") || "Sin Datos";
     let evolucion = document.getElementById("evolucion") || "Sin Datos";
     let diagnostico =
@@ -419,65 +438,60 @@ document.addEventListener("DOMContentLoaded", function () {
   function getAnamnesis(id) {
     let tableAn = document.getElementById("tableAn");
     let isEmpty = true;
+    const noDataRow = `<tr> <td colspan="4" style="text-align: center;">Sin registros</td> </tr>`;
+
     db.collection("fichamedica")
       .where("ID_paciente", "==", id)
+      .orderBy("fechaCreacion", "desc")
       .onSnapshot((querySnapshot) => {
-        querySnapshot.docChanges().forEach((change) => {
-          if (change.type === "added") {
-            const doc = change.doc;
-            let estadoColor = badgeColor(doc.data().estado);
-            const newRow = `
-            <tr id="${doc.id}">
-              <td>${doc.data().fechaCreacion} </td>
-              <td>${doc.data().motivoConsulta}</td>
-              <td>
-                <span class="badge ${estadoColor}">
-                  ${doc.data().estado}
-                </span>
-              </td>
-              <td>
-              <!----------------------------BOTON VER---------------------------->
-  
-              <!----------------------------BOTON EDITAR------------------------->
-                  <button 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#anModal" 
-                    type="button" 
-                    class="btn btn-warning btn-sm" 
-                    id="editarAn" 
-                    data-id="${doc.id}">
-                    <i class="bi bi-pencil-square" 
+        const rows = [];
+        querySnapshot.forEach((doc) => {
+          let estadoColor = badgeColor(doc.data().estado);
+          const newRow = `
+              <tr id="${doc.id}">
+                <td>${formatearFechaHora(doc.data().fechaCreacion)}</td>
+                <td>${doc.data().motivoConsulta}</td>
+                <td>
+                  <span class="badge ${estadoColor}">
+                    ${doc.data().estado}
+                  </span>
+                </td>
+                <td>
+                <!----------------------------BOTON VER---------------------------->
+    
+                <!----------------------------BOTON EDITAR------------------------->
+                    <button 
                       data-bs-toggle="modal" 
                       data-bs-target="#anModal" 
-                      id="editarAnI" data-id="${doc.id}">
-                    </i>
-                  </button>
-              <!----------------------------BOTON ELIMINAR------------------------->
-                <button type="button" 
-                class="btn btn-danger btn-sm" 
-                id="eliminarAn" 
-                  data-id="${doc.id}">
-                    <i class="bi bi-journal-x" 
-                      id="eliminarAnI" 
+                      type="button" 
+                      class="btn btn-warning btn-sm" 
+                      id="editarAn" 
                       data-id="${doc.id}">
-                    </i>
-                </button>
-              </td>
-            </tr>`;
-            tableAn.insertAdjacentHTML("afterbegin", newRow);
-            isEmpty = false;
-          } else if (change.type === "removed") {
-            // Aquí eliminarás filas cuando se eliminen documentos
-            const doc = change.doc;
-            const rowToRemove = document.getElementById(`${doc.id}`);
-            if (rowToRemove) {
-              rowToRemove.remove();
-            }
-          }
+                      <i class="bi bi-pencil-square" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#anModal" 
+                        id="editarAnI" data-id="${doc.id}">
+                      </i>
+                    </button>
+                <!----------------------------BOTON ELIMINAR------------------------->
+                  <button type="button" 
+                  class="btn btn-danger btn-sm" 
+                  id="eliminarAn" 
+                    data-id="${doc.id}">
+                      <i class="bi bi-journal-x" 
+                        id="eliminarAnI" 
+                        data-id="${doc.id}">
+                      </i>
+                  </button>
+                </td>
+              </tr>`;
+          rows.push(newRow);
         });
-        if (isEmpty) {
-          const noDataRow = `<tr> <td colspan="4" style="text-align: center;">Sin registros</td> </tr>`;
+
+        if (isEmpty && rows.length === 0) {
           tableAn.innerHTML = noDataRow;
+        } else {
+          tableAn.innerHTML = rows.join("");
         }
       });
   }
