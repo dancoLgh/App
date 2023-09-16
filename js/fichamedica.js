@@ -410,6 +410,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //R Obtener todas las Anamnesis del paciente
   function getAnamnesis(id) {
     let tableAn = document.getElementById("tableAn");
+    let isEmpty = true;
     db.collection("fichamedica")
       .where("ID_paciente", "==", id)
       .onSnapshot((querySnapshot) => {
@@ -456,6 +457,7 @@ document.addEventListener("DOMContentLoaded", function () {
               </td>
             </tr>`;
             tableAn.insertAdjacentHTML("afterbegin", newRow);
+            isEmpty = false;
           } else if (change.type === "removed") {
             // Aquí eliminarás filas cuando se eliminen documentos
             const doc = change.doc;
@@ -465,6 +467,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
         });
+        if (isEmpty) {
+          const noDataRow = `<tr> <td colspan="4" style="text-align: center;">Sin registros</td> </tr>`;
+          tableAn.innerHTML = noDataRow;
+        }
       });
   }
   //U Editar Pacientes
