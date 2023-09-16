@@ -21,7 +21,7 @@
           type="search"
           placeholder="Buscar Paciente"
           aria-label="Buscar "
-          id="buscar"
+          id="buscarAn"
         />
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
@@ -143,15 +143,27 @@
             </div>
           </div>
           <h5>Datos Medicos</h5>
-          <div class="form-floating mb-3 col-md">
-            <input
-              type="text"
-              class="form-control"
-              id="docCabeceraPaciente"
-              placeholder="Doctor de Cabecera"
-              required
-            />
-            <label for="docCabeceraPaciente">Doctor de Cabecera</label>
+          <div class="row g-2">
+            <div class="form-floating mb-3 col-md">
+              <input
+                type="text"
+                class="form-control"
+                id="docCabeceraPaciente"
+                placeholder="Doctor de Cabecera"
+                required
+              />
+              <label for="docCabeceraPaciente">Doctor de Cabecera</label>
+            </div>
+            <div class="form-floating mb-3 col-md">
+              <input
+                type="text"
+                class="form-control"
+                id="grupoSanguineoPaciente"
+                placeholder="Grupo Sanguineo"
+                required
+              />
+              <label for="grupoSanguineoPaciente">Grupo Sanguineo</label>
+            </div>
           </div>
           <div class="form-floating col-md">
             <textarea

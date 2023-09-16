@@ -12,7 +12,6 @@ function loadTemplate(templateName) {
     if (xhr.readyState === 4 && xhr.status === 200) {
       contentDiv.innerHTML = xhr.responseText;
     } else if (xhr.status === 404) {
-      console.log(hash);
       loadTemplate("home");
     }
   };
@@ -24,7 +23,6 @@ function loadTemplate(templateName) {
 function handleRoute() {
   const hash = window.location.hash;
   const route = hash.split("/")[1];
-  console.log(route);
   switch (route) {
     case "":
       loadTemplate("home");

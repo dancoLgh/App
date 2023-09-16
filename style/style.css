@@ -1,3 +1,10 @@
+* {
+    padding: O;
+    margin: O;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
 .navbar-nav {
     color: white !important;
 }
@@ -9,4 +16,8 @@
 
 .color-white {
     color: white;
+}
+
+.fontDetallesAn {
+    font-size: 1rem !important;
 }

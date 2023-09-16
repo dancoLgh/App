@@ -21,157 +21,306 @@
           type="search"
           placeholder="Buscar en registros"
           aria-label="Buscar "
-          id="buscar"
+          id="buscarAn"
         />
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
     </div>
   </nav>
+
   <div class="alert alert-light mt-2" role="alert">
-    <h6>Doc de Cabecera <b id="docCabeceraPaciente"></b></h6>
+    <h6>Doctor de Cabecera: <b id="docCabeceraPaciente"></b></h6>
+    <h6>Grupo Sanguineo: <b id="grupoSanguineoPaciente"></b></h6>
     <hr />
     <h5>Anamnesis Remota</h5>
     <p id="antecedentesPaciente"></p>
   </div>
-  <table class="table mt-5 table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Fecha</th>
-        <th scope="col">Motivo</th>
-        <th scope="col">Estado</th>
-        <!-- <th scope="col">Diagnostico</th> -->
-        <th scope="col">Acciones</th>
-      </tr>
-    </thead>
-    <tbody id="tableAn"></tbody>
-  </table>
-
-  <!-- Modal registo de paciente -->
-  <div
-    class="modal fade"
-    id="anModal"
-    tabindex="-1"
-    aria-labelledby="anModal"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content">
-        <!-- Heder mmodal -->
-        <div class="modal-header">
-          <h4 class="modal-title" id="anModaTitlel">
-            Creadno Nueva Anamnesis Actual
-          </h4>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+  <!-- Anamnesis y detalles -->
+  <div class="row">
+    <div class="col">
+      <h3 class="text-center">Anamnesis</h3>
+      <!-- Tabla de amnesis -->
+      <table class="table mt-2 table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Motivo</th>
+            <th scope="col">Estado</th>
+            <!-- <th scope="col">Diagnostico</th> -->
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tableAn"></tbody>
+      </table>
+    </div>
+    <!-- Anamnesis Detalle -->
+    <div class="col bg-light">
+      <h3 class="text-center mt-2">Detalles de la Anamnesis</h3>
+      <div class="col" id="detalleAnamnesis">
+        <div class="text-center">
+          <span>Haga Click sobre una Anamnesis para ver le Detalle</span>
         </div>
-        <!-- fin header modal -->
-        <div class="modal-body">
-          <!-- formulario de registor de paciente -->
-          <select
-            class="form-select form-select-sm mb-3"
-            aria-label=".form-select-sm estado"
-            id="estado"
-          >
-            <option value="En Tratamiento">En Diagnosis</option>
-            <option value="En Tratamiento">En Tratamiento</option>
-            <option value="Alta">Alta</option>
-            <option value="Derivado">Derivado</option>
-          </select>
-          <div class="form-floating mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="motivoConsulta"
-              placeholder="Motivo de Consulta"
-            />
-            <label for="motivoConsulta">Motivo de Consulta</label>
-          </div>
+      </div>
+    </div>
 
-          <div class="form-floating col-md mb-3">
-            <textarea
-              class="form-control"
-              placeholder="Dolor/frecuencia/intensidad"
-              id="dolor"
-              style="height: 100px"
-              inspeccion
-            ></textarea>
-            <label for="dolor">Dolor/frecuencia/intensidad</label>
+    <!-- Modal registo de paciente -->
+    <div
+      class="modal fade"
+      id="anModal"
+      tabindex="-1"
+      aria-labelledby="anModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <!-- Heder mmodal -->
+          <div class="modal-header">
+            <div class="container">
+              <div class="row align-items-center justify-content-between">
+                <div class="col-3 align-self-center">
+                  <select
+                    class="form-select form-select-sm"
+                    aria-label=".form-select-sm estado"
+                    id="estado"
+                  >
+                    <option value="En Tratamiento">En Diagnosis</option>
+                    <option value="En Tratamiento">En Tratamiento</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Derivado">Derivado</option>
+                  </select>
+                </div>
+
+                <div class="col-md-auto">
+                  <h4 class="modal-title" id="anModaTitlel">
+                    Nueva Anamnesis Actual
+                  </h4>
+                </div>
+                <div class="col align-self-center">
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="form-floating col-md mb-3">
-            <textarea
-              class="form-control"
-              placeholder="Inspección"
-              id="inspeccion"
-              style="height: 100px"
-            ></textarea>
-            <label for="inspeccion">Inspección</label>
+          <!-- fin header modal -->
+          <div class="modal-body">
+            <!-- formulario de registor de paciente -->
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                  <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne"
+                    aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne"
+                  >
+                    Anamnesis Actual
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseOne"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="panelsStayOpen-headingOne"
+                >
+                  <div class="accordion-body">
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="motivoConsulta"
+                        placeholder="Motivo de Consulta"
+                      />
+                      <label for="motivoConsulta">Motivo de Consulta</label>
+                    </div>
+                    <div class="form-floating col-md mb-3">
+                      <textarea
+                        class="form-control"
+                        placeholder="Dolor/frecuencia/intensidad"
+                        id="dolor"
+                        style="height: 100px"
+                        inspeccion
+                      ></textarea>
+                      <label for="dolor">Dolor/frecuencia/intensidad</label>
+                    </div>
+                    <div class="form-floating col-md mb-3">
+                      <textarea
+                        class="form-control"
+                        placeholder="Inspección"
+                        id="inspeccion"
+                        style="height: 100px"
+                      ></textarea>
+                      <label for="inspeccion">Inspección</label>
+                    </div>
+                    <div class="form-floating col-md mb-3">
+                      <textarea
+                        class="form-control"
+                        placeholder="palpacion"
+                        id="palpacion"
+                        style="height: 100px"
+                      ></textarea>
+                      <label for="palpacion">Palpación</label>
+                    </div>
+                    <div class="form-floating col-md mb-3">
+                      <textarea
+                        class="form-control"
+                        placeholder="Movilidad pasiva"
+                        id="movilidadPasiva"
+                        style="height: 100px"
+                      ></textarea>
+                      <label for="movilidadPasiva">Movilidad pasiva</label>
+                    </div>
+                    <div class="form-floating col-md mb-3">
+                      <textarea
+                        class="form-control"
+                        placeholder="Movilidad pasiva"
+                        id="movilidadActiva"
+                        style="height: 100px"
+                      ></textarea>
+                      <label for="movilidadActiva">Movilidad activa</label>
+                    </div>
+                    <div class="form-floating col-md mb-3">
+                      <textarea
+                        class="form-control"
+                        placeholder="Movilidad pasiva"
+                        id="fuerza"
+                        style="height: 100px"
+                      ></textarea>
+                      <label for="fuerza">Fuerza</label>
+                    </div>
+                    <div class="form-floating col-md mb-3">
+                      <textarea
+                        class="form-control"
+                        placeholder="ROM"
+                        id="rom"
+                        style="height: 50px"
+                      ></textarea>
+                      <label for="rom">ROM</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo"
+                  >
+                    Tratamiento
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseTwo"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="panelsStayOpen-headingTwo"
+                >
+                  <div class="accordion-body">
+                    <!-- Tratamiento  -->
+                    <div class="form-floating col-md mb-3">
+                      <textarea
+                        class="form-control"
+                        placeholder="Movilidad pasiva"
+                        id="tratamiento"
+                        style="height: 200px"
+                      ></textarea>
+                      <label for="tratamiento">Tratamiento </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThree"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree"
+                  >
+                    Evolución
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseThree"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="panelsStayOpen-headingThree"
+                >
+                  <div class="accordion-body">
+                    <!-- Evolucion -->
+                    <div class="form-floating col-md mb-3">
+                      <textarea
+                        class="form-control"
+                        placeholder="Movilidad pasiva"
+                        id="evolucion"
+                        style="height: 200px"
+                      ></textarea>
+                      <label for="evolucion">Evolución </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingfour">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapsefour"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapsefour"
+                  >
+                    Diagnóstico
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapsefour"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="panelsStayOpen-headingfour"
+                >
+                  <div class="accordion-body">
+                    <!-- Diagnóstico -->
+                    <div class="form-floating col-md mb-3">
+                      <textarea
+                        class="form-control"
+                        placeholder="Movilidad pasiva"
+                        id="diagnostico"
+                        style="height: 80px"
+                      ></textarea>
+                      <label for="diagnostico">Diagnóstico </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                id="btnInsertAn"
+                data-bs-dismiss="modal"
+                class="btn btn-primary"
+              >
+                Crear Anamnesis
+              </button>
+            </div>
           </div>
-          <div class="form-floating col-md mb-3">
-            <textarea
-              class="form-control"
-              placeholder="palpacion"
-              id="palpacion"
-              style="height: 100px"
-            ></textarea>
-            <label for="palpacion">palpación</label>
-          </div>
-          <div class="form-floating col-md mb-3">
-            <textarea
-              class="form-control"
-              placeholder="Movilidad pasiva"
-              id="movilidadPasiva"
-              style="height: 100px"
-            ></textarea>
-            <label for="movilidadPasiva">Movilidad pasiva</label>
-          </div>
-          <div class="form-floating col-md mb-3">
-            <textarea
-              class="form-control"
-              placeholder="Movilidad pasiva"
-              id="movilidadActiva"
-              style="height: 100px"
-            ></textarea>
-            <label for="movilidadActiva">Movilidad activa</label>
-          </div>
-          <div class="form-floating col-md mb-3">
-            <textarea
-              class="form-control"
-              placeholder="Movilidad pasiva"
-              id="fuerza"
-              style="height: 100px"
-            ></textarea>
-            <label for="fuerza">Fuerza</label>
-          </div>
-          <div class="form-floating col-md mb-3">
-            <textarea
-              class="form-control"
-              placeholder="ROM"
-              id="rom"
-              style="height: 50px"
-            ></textarea>
-            <label for="rom">ROM</label>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Cancelar
-          </button>
-          <button
-            type="button"
-            id="btnInsertAn"
-            data-bs-dismiss="modal"
-            class="btn btn-primary"
-          >
-            Crear Anamnesis
-          </button>
         </div>
       </div>
     </div>

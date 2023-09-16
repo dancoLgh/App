@@ -69,7 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (mutation.addedNodes[2].id === "pacientes") {
           getPacientes();
           buscador();
-          console.log(getUrl());
         }
       }
     }
@@ -93,6 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let celularTutoPaciente = document.getElementById("celularTutoPaciente");
     let docCabeceraPaciente = document.getElementById("docCabeceraPaciente");
     let antecedentesPaciente = document.getElementById("antecedentesPaciente");
+    let grupoSanguineoPaciente = document.getElementById(
+      "grupoSanguineoPaciente"
+    );
 
     db.collection("pacientes")
       .add({
@@ -105,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
         celularTutoPaciente: celularTutoPaciente.value,
         docCabeceraPaciente: docCabeceraPaciente.value,
         antecedentesPaciente: antecedentesPaciente.value,
+        grupoSanguineoPaciente: grupoSanguineoPaciente.value,
       })
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
@@ -134,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
         celularTutoPaciente.value = "";
         docCabeceraPaciente.value = "";
         antecedentesPaciente.value = "";
+        grupoSanguineoPaciente.value = "";
       })
       .catch((error) => {
         console.error("Error adding document: ", error);
@@ -226,6 +230,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let celularTutoPaciente = document.getElementById("celularTutoPaciente");
     let docCabeceraPaciente = document.getElementById("docCabeceraPaciente");
     let antecedentesPaciente = document.getElementById("antecedentesPaciente");
+    let grupoSanguineoPaciente = document.getElementById(
+      "grupoSanguineoPaciente"
+    );
 
     var pacienteRef = db.collection("pacientes").doc(id);
 
@@ -240,6 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
         celularTutoPaciente: celularTutoPaciente.value,
         docCabeceraPaciente: docCabeceraPaciente.value,
         antecedentesPaciente: antecedentesPaciente.value,
+        grupoSanguineoPaciente: grupoSanguineoPaciente.value,
       })
       .then(() => {
         const Toast = Swal.mixin({
@@ -325,6 +333,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let celularTutoPaciente = document.getElementById("celularTutoPaciente");
     let docCabeceraPaciente = document.getElementById("docCabeceraPaciente");
     let antecedentesPaciente = document.getElementById("antecedentesPaciente");
+    let grupoSanguineoPaciente = document.getElementById(
+      "grupoSanguineoPaciente"
+    );
     let docRef = db.collection("pacientes").doc(id);
     docRef
       .get()
@@ -339,6 +350,7 @@ document.addEventListener("DOMContentLoaded", function () {
           celularTutoPaciente.value = doc.data().celularTutoPaciente;
           docCabeceraPaciente.value = doc.data().docCabeceraPaciente;
           antecedentesPaciente.value = doc.data().antecedentesPaciente;
+          grupoSanguineoPaciente.value = doc.data().grupoSanguineoPaciente;
         } else {
           console.log("No such document!");
         }
@@ -386,8 +398,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("numDocumetoPaciente").value = "";
     document.getElementById("celularPaciente").value = "";
     document.getElementById("celularTutoPaciente").value = "";
-    document.getElementById(("docCabeceraPaciente".value = ""));
+    document.getElementById("docCabeceraPaciente").value = "";
     document.getElementById("antecedentesPaciente").value = "";
+    document.getElementById("grupoSanguineoPaciente").value = "";
   }
 
   //obtern UIRL
