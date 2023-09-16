@@ -4,6 +4,7 @@ let row;
 document.addEventListener("DOMContentLoaded", function () {
   let lastSelectedRow;
   let currentSelectedRow;
+
   const contentDiv = document.getElementById("content");
   // Cargar funciones cuando se cargo el div en HTML
   function onDivInserted(mutationsList, observer) {
@@ -495,7 +496,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
   }
-  //U Editar Pacientes
+  //U Editar Anamnesis
   function editarAnamesis(id) {
     let motivoConsulta = document.getElementById("motivoConsulta") || "-";
     let dolor = document.getElementById("dolor") || "-";
@@ -506,7 +507,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let fuerza = document.getElementById("fuerza") || "-";
     let rom = document.getElementById("rom") || "-";
     let estado = document.getElementById("estado");
-    let fechaCreacion = obtenerFechaHoraActual();
     let tratamiento = document.getElementById("tratamiento") || "Sin Datos";
     let evolucion = document.getElementById("evolucion") || "Sin Datos";
     let diagnostico =
@@ -516,7 +516,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     return pacienteRef
       .update({
-        fechaCreacion: fechaCreacion,
         motivoConsulta: motivoConsulta.value,
         dolor: dolor.value,
         inspeccion: inspeccion.value,
