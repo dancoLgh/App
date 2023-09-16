@@ -25,7 +25,7 @@ function handleRoute() {
   const route = hash.split("/")[1];
   switch (route) {
     case "":
-      loadTemplate("home");
+      loadTemplate("pacientes");
       break;
     case "pacientes":
       loadTemplate("pacientes");
@@ -34,7 +34,7 @@ function handleRoute() {
       loadTemplate("fichamedica");
       break;
     default:
-      loadTemplate("home");
+      loadTemplate("pacientes");
   }
 }
 

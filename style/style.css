@@ -21,3 +21,8 @@
 .fontDetallesAn {
     font-size: 1rem !important;
 }
+
+.fontTitle {
+    font-size: 2rem !important;
+    font-weight: 500;
+}

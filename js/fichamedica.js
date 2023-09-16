@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Verifica si el evento se originó en el botón con el ID "eliminarAn o eliminarAnI "
     if (target && (target.id === "eliminarAn" || target.id === "eliminarAnI")) {
       eliminarAnamnesis(target.getAttribute("data-id"));
+      limpiarDetrallesAnamnesis();
     }
     console.log(target.tagName);
   });
