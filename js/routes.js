@@ -12,7 +12,7 @@ function loadTemplate(templateName) {
     if (xhr.readyState === 4 && xhr.status === 200) {
       contentDiv.innerHTML = xhr.responseText;
     } else if (xhr.status === 404) {
-      loadTemplate("home");
+      loadTemplate("pacientes");
     }
   };
   xhr.send();
