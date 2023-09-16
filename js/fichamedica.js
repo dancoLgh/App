@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          titulo.innerHTML = `Registros Medicos de  <b> ${
+          titulo.innerHTML = `Registros Médicos de  <b> ${
             doc.data().nombresPaciente
           } ${doc.data().apellidosPaciente}</b>`;
           docCabeceraPaciente.innerHTML = doc.data().docCabeceraPaciente;
