@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let grupoSanguineoPaciente = document.getElementById(
       "grupoSanguineoPaciente"
     );
+    let fechaCreacion = firebase.firestore.Timestamp.now();
 
     db.collection("pacientes")
       .add({
@@ -108,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
         docCabeceraPaciente: docCabeceraPaciente.value,
         antecedentesPaciente: antecedentesPaciente.value,
         grupoSanguineoPaciente: grupoSanguineoPaciente.value,
+        fechaCreacion: fechaCreacion,
       })
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
@@ -163,34 +165,36 @@ document.addEventListener("DOMContentLoaded", function () {
   function getPacientes() {
     let url = getUrl();
     let tablePacientes = document.getElementById("tablePacientes");
-    db.collection("pacientes").onSnapshot((querySnapshot) => {
-      tablePacientes.innerHTML = "";
-      querySnapshot.forEach((doc) => {
-        tablePacientes.innerHTML += `
+    db.collection("pacientes")
+      .orderBy("fechaCreacion", "desc")
+      .onSnapshot((querySnapshot) => {
+        tablePacientes.innerHTML = "";
+        querySnapshot.forEach((doc) => {
+          tablePacientes.innerHTML += `
           <tr>
             <td>${doc.data().nombresPaciente} ${
-          doc.data().apellidosPaciente
-        }</td>
+            doc.data().apellidosPaciente
+          }</td>
             <td>${doc.data().numDocumetoPaciente}</td>
             <td>${doc.data().EdadPaciente}</td>
             <td>
                 <a  href="${url}#/fichamedica/${
-          doc.id
-        }"> <button type="button" class="btn btn-success btn-sm" id="verPaciente"><i class="bi bi-eye"></i></button></a>
+            doc.id
+          }"> <button type="button" class="btn btn-success btn-sm" id="verPaciente"><i class="bi bi-eye"></i></button></a>
                 <button data-bs-toggle="modal" data-bs-target="#crearPacienteModal" type="button" class="btn btn-warning btn-sm" id="editarPaciente" data-id="${
                   doc.id
                 }"><i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#crearPacienteModal" id="editarPacienteI" data-id="${
-          doc.id
-        }" ></i></button>
+            doc.id
+          }" ></i></button>
                 <button type="button" class="btn btn-danger  btn-sm" id="eliminarPaciente" data-id="${
                   doc.id
                 }"><i class="bi bi-person-x" id="eliminarPacienteI" data-id="${
-          doc.id
-        }"></i></button>
+            doc.id
+          }"></i></button>
             </td>
           </tr>`;
+        });
       });
-    });
   }
   //Eliminar Paciente
   function eliminarPaciente(id) {
