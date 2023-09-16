@@ -164,12 +164,20 @@ document.addEventListener("DOMContentLoaded", function () {
         if (doc.exists) {
           const data = doc.data();
           detalleAnamnesis.innerHTML = `
+          
+         
             <div">
             <div class="card mb-4">
-              <div class="card-header"><h4>Anamnesis Actual</h4></div>
+              <div class="card-header">
+              <h4>Anamnesis Actual      
+              <span  class="badge fontSizebadge
+              ${badgeColor(data.estado)}">
+              ${data.estado}</span> </h4> 
+         
+              </div>
               <div class="card-body">
                 <blockquote class="blockquote mb-0 text-start fontDetallesAn">
-  
+                  <p> <b>Fecha de Creacion:</b>${data.fechaCreacion} </p>
                   <p> <b>Motivo de Consulta:  </b>${data.motivoConsulta}</p>
                   <p> <b> Dolor/frecuencia/intencidad:</b> ${data.dolor}</p>
                   <p> <b> Inspección: </b> ${data.inspeccion}</p>
